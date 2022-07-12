@@ -32,7 +32,7 @@ if (isset($_SESSION["username"])) {
 <!--    </div>-->
 </head>
 
-<body class="background">
+<body style="background: lightblue;">
 <div class="wrapper2">
     <div class="center2">
             <div class="container2">
