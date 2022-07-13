@@ -70,8 +70,9 @@ if (isset($_SESSION["username"])) {
                     <br>
                 </table>
                 <br>
+            </div>
     </div>
-</div>
+    <br><br>
 </body>
 
 </html>
