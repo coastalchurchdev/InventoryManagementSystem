@@ -138,6 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $update_location = "UPDATE Inventory SET location = $location WHERE itemID = $barcode_value";
 
             echo "<script>alert('Item has been checked out and logged')</script>";
+            echo "<script> window.location ='inventory.php'; </script>";
         }
 
     } else {
@@ -145,7 +146,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo("<script>alert('No Item Exists')</script>");
     }
 } else {
-    echo "<script> window.location ='inventory.php'; </script>";
     exit();
 }
 //mysqli_close($conn);
