@@ -1,13 +1,13 @@
 <?php
 
-// Initialze Session Variables
+// Initialize Session Variables
 if(!isset($_SESSION))
 {
     session_start();
 }
 
 if (isset($_SESSION["username"])) {
-    $usernlame = $_SESSION["username"];
+    $username = $_SESSION["username"];
 } else {
     // Redirects user if no user is logged in
     echo "<script>window.location = 'index.php';</script>";
@@ -38,13 +38,23 @@ if (isset($_SESSION["username"])) {
         <div class="center2">
             <h3>Please scan the barcode attached to the item you are trying to check out. </h3>
             <form action="" method="POST">
-                <label>
+                <label>Please enter item ID
                     <input type="text"
-                           name="barcode" placeholder="Please Scan Item">
+                           name="barcode">
                 </label>
+                <br><br>
+                <label>What is your reason for checking this item out?
+                    <input type="text" name="reason"/>
+                </label>
+                <br><br>
+                <label>Where will this item be going?
+                    <input type="text" name="location"/>
+                </label>
+                <br><br>
                 <label>
                     <input type="submit" class="button2" value="Submit" name="Check_Out">
                 </label>
+                <br><br>
             </form>
         </div>
     </div>
@@ -55,6 +65,8 @@ if (isset($_SESSION["username"])) {
 //Set the barcode_value with value of the POST variable
 if(isset($_POST['Check_Out'])) {
     $barcode_value = $_POST['barcode'];
+    $reason = $_POST['reason'];
+    $location = $_POST['location'];
 }
 
 $userCheck = $_SESSION["username"];
@@ -90,14 +102,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = mysqli_query($conn, $sql);
         // Goes through the rows and pulls data from each column
         if (mysqli_num_rows($result) > 0) {
-//            echo("Entered If Statement: ");
+            echo("Entered If Statement: ");
             // output data of each row
             while ($row = mysqli_fetch_assoc($result)) {
 //                echo("Entered While Loop: ");
                 $itemID_result = $row['itemID'];
                 $productName_result = $row['productName'];
+                $warrantyStatus = $row['warrantyStatus'];
                 $availability_result = $row['availability'];
-                echo "Availability: ".$availability_result;
+                $loanStatusType = $row['loanStatusType'];
+                $serialNumber = $row['serialNumber'];
+                $warrantyEndDate = $row['warrantyEndDate'];
 //                echo("availability: ".$availability_result);
             }
         }
@@ -107,16 +122,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<script> alert('This item is currently unavailable')</script>";
             echo "<script>window.location = 'check_out.php'</script>";
         } else {
-            // Inserts values into "Logs" table
-            $sql = "INSERT INTO Log VALUES(NULL, $itemID_result, '$productName_result', NOW(), NULL, '$fName', '$lName', '$email', '$phone')";
-            mysqli_query($conn, $sql);
+            // Inserts values into "Log" table
+            echo "Before Insertion";
+            $insertIntoLog = "INSERT INTO Log VALUES(NULL, '$itemID_result', '$productName_result', NOW(), NULL,
+                       '$reason', '$fName', '$lName', '$email', '$phone', '$location', '$loanStatusType')";
+            mysqli_query($conn, $insertIntoLog);
+            echo "After Insertion";
 
             //If values is added, then count is subtracted by 1
             $availability_result -= 1;
             $update_count = "UPDATE Inventory SET availability = $availability_result WHERE itemID = $barcode_value";
             mysqli_query($conn, $update_count);
 
-            echo "<script>alert('Item has been checked out and logged')</script>";
+            //Updates where this item is located in the Inventory page
+            $update_location = "UPDATE Inventory SET location = $location WHERE itemID = $barcode_value";
+
+//            echo "<script>alert('Item has been checked out and logged')</script>";
         }
 
     } else {
@@ -125,6 +146,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 } else {
 //    echo "<script> window.location ='check_out.php'; </script>";
-    exit();
+//    exit();
 }
-mysqli_close($conn);
+//mysqli_close($conn);

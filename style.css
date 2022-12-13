@@ -38,7 +38,6 @@
     list-style: none;
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
-    box-shadow: dodgerblue;
     /*border-bottom: 2px solid black;*/
     padding: 14px 14px;
     /*border-left: 2px solid black;*/
@@ -99,6 +98,7 @@
 
 .wrapper3 {
     display: grid;
+    color: white;
     grid-template-columns: repeat(8, 1fr);
     gap: 5px;
     grid-auto-rows: 20px;
@@ -148,7 +148,6 @@
 }
 
 .center4 {
-    float: left;
     padding-left: 10px;
     padding-right: 10px;
     grid-area: a;

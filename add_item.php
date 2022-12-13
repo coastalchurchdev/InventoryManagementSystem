@@ -63,7 +63,7 @@ else {
                     <option value=""></option>
                     <option value="permanent">Temporary</option>
                     <option value="permanent">Permanent</option>
-                    <br><i><b>Is this going to be part of a permanent install, or is it for temporary use</b></i>
+                    <br><b>Is this going to be part of a permanent install, or is it for temporary use</b>
                 </select>
             </label>
             <br><br>
