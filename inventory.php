@@ -1,8 +1,7 @@
 <?php
 include("display_inventory.php");
 
-if(!isset($_SESSION))
-{
+if (!isset($_SESSION)) {
     session_start();
 }
 
@@ -49,38 +48,38 @@ if (isset($_SESSION["username"])) {
                 </thead>
                 <tbody>
                 <?php
-                    if (isset($fetchData)){
-                    if (is_array($fetchData)){
-                        $itemID = 1;
-                        foreach ($fetchData as $data) {
-                            ?>
-                            <tr>
-                                <td><?php echo $data['itemID']; ?></td>
-                                <td><?php echo $data['productName']; ?></td>
-                                <td><?php echo $data['serialNumber']; ?></td>
-                                <td><?php echo $data['availability']; ?></td>
-                                <td><?php echo $data['location']; ?></td>
-                                <td><?php echo $data['warrantyStatus']; ?></td>
-                                <td><?php echo $data['warrantyEndDate']; ?></td>
-                                <td><?php echo $data['loanStatusType']; ?></td>
-                            </tr>
-                            <?php
-                            $itemID++;
-                        }
-                    }else{ ?>
-                    <tr>
-                        <td colspan="3">
-                            <?php echo $fetchData; ?>
-                        </td>
-                    <tr>
+                if (isset($fetchData)){
+                if (is_array($fetchData)){
+                    $itemID = 1;
+                    foreach ($fetchData as $data) {
+                        ?>
+                        <tr>
+                            <td><?php echo $data['itemID']; ?></td>
+                            <td><?php echo $data['productName']; ?></td>
+                            <td><?php echo $data['serialNumber']; ?></td>
+                            <td><?php echo $data['availability']; ?></td>
+                            <td><?php echo $data['location']; ?></td>
+                            <td><?php echo $data['warrantyStatus']; ?></td>
+                            <td><?php echo $data['warrantyEndDate']; ?></td>
+                            <td><?php echo $data['loanStatusType']; ?></td>
+                        </tr>
                         <?php
-                        }
-                        } ?>
-                    </tbody>
-                    <br>
-                </table>
+                        $itemID++;
+                    }
+                }else{ ?>
+                <tr>
+                    <td colspan="3">
+                        <?php echo $fetchData; ?>
+                    </td>
+                <tr>
+                    <?php
+                    }
+                    } ?>
+                </tbody>
                 <br>
-            </div>
+            </table>
+            <br>
+        </div>
     </div>
     <br><br>
 </body>

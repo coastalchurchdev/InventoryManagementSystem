@@ -134,6 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             //Updates where this item is located in the Inventory page
             $update_location = "UPDATE Inventory SET location = $location WHERE itemID = $barcode_value";
+            mysqli_query($conn, $update_location);
 
             echo "<script>alert('Item has been checked out and logged')</script>";
             echo "<script> window.location ='inventory.php'; </script>";
