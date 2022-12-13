@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set("America/New_York");
 include("database_connection.php");
 /** @var $conn */
 $db = $conn;

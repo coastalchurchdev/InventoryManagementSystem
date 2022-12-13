@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set("America/New_York");
 if(!isset($_SESSION))
 {
     session_start();

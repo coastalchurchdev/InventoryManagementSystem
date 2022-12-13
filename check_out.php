@@ -1,5 +1,5 @@
 <?php
-
+date_default_timezone_set("America/New_York");
 // Initialize Session Variables
 if(!isset($_SESSION))
 {
@@ -123,11 +123,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<script>window.location = 'check_out.php'</script>";
         } else {
             // Inserts values into "Log" table
-            echo "Before Insertion";
-            $insertIntoLog = "INSERT INTO Log VALUES(NULL, '$itemID_result', '$productName_result', NOW(), NULL,
+            $insertIntoLog = "INSERT INTO Log VALUES(NULL, '$itemID_result', '$productName_result', DATE_SUB(NOW(), INTERVAL 5 HOUR), NULL,
                        '$reason', '$fName', '$lName', '$email', '$phone', '$location', '$loanStatusType')";
             mysqli_query($conn, $insertIntoLog);
-            echo "After Insertion";
 
             //If values is added, then count is subtracted by 1
             $availability_result -= 1;
