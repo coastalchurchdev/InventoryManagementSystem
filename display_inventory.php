@@ -3,7 +3,7 @@ include("database_connection.php");
 /** @var $conn */
 $db = $conn;
 $tableName = "Inventory";
-$columns = ['itemID', 'productName', 'availability'];
+$columns = ['itemID', 'productName', 'serialNumber', 'availability', 'location', 'warrantyStatus', 'warrantyEndDate', 'loanStatusType'];
 $fetchData = fetch_data($db, $tableName, $columns);
 function fetch_data($db, $tableName, $columns)
 {
@@ -15,7 +15,7 @@ function fetch_data($db, $tableName, $columns)
         $msg = "Table Name is empty";
     } else {
         $columnName = implode(", ", $columns);
-        $query = "SELECT " . $columnName . " FROM $tableName" . " ORDER BY itemID DESC";
+        $query = "SELECT " . $columnName . " FROM $tableName" . " ORDER BY itemID ASC";
         $result = $db->query($query);
         if ($result == true) {
             if ($result->num_rows > 0) {

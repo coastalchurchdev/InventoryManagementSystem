@@ -1,8 +1,8 @@
 <?php
-$servername = "gocoastal.org";
-$database = "dbbp4diqsg4wen";
-$username = "upwmg2keig6pn";
-$password = "G0C0astal101";
+$servername = 'pims.gocoastal.org';
+$database = 'dbzopdgnyog8xp';
+$username = 'ulx7wzfgibdht';
+$password = 'gr1@dc8&2~v@';
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $database);

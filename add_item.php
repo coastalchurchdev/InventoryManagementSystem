@@ -33,37 +33,64 @@ else {
     ?>
 </head>
 <body class="background">
-    <div class="wrapper2">
-        <div class="center2">
-            <h3>Let's add an item</h3>
-            <form action="add_item.php" method="post">
-            <label>
-                <input type="text" placeholder="Product Name" name="itemName">
+<div class="wrapper2">
+    <div class="center2">
+        <h1>Let's add an item</h1>
+        <form action="add_item.php" method="post">
+            <label>What is the name of this item?
+                <input type="text" name="itemName">
             </label>
-                <label>
-                <input type="number" id="amount" name="amount" value="amount" placeholder="Count">
-                </label>
-                <br><br>
-                <label>
-                    <input type="text" id="serialNum" name="serialNum" value="" placeholder="Serial Number">
-                </label>
-                <label>
-                    <input type="number" id="specialCount" name="specialCount" min="0" value="" placeholder="Item Limit"
-                </label>
-                    <br><br>
-                <p>Is this product under warranty?</p>
-                <input type="radio" id='yes' name='warrantyStatus' value='1' placeholder="Yes" />
-                <label for="yes">Yes</label><br>
-                <input type="radio" id='no' name='warrantyStatus' value=2 />
-                <label for="no">No</label><br>
-                <input data-show-if="warrantyStatus = '1'" type="date" id="warrantyDate" name="warrantyDate" value="" placeholder="Warranty Expiration">
-                <br><br>
-                <input type="submit" class="button" value="Submit" name="AddItem">
-                <input type="reset" class="button3" value="Clear" name="ClearFields">
-            </form>
-        </div>
+            <br><br>
+            <label>How many of this item are you adding?
+                <input type="number" id="amount" name="amount" value="amount">
+            </label>
+            <br><br>
+            <label>What is the serial number?
+                <input type="text" id="serialNum" name="serialNum" value="">
+            </label>
+            <br><br>
+            <label>What level should trigger an alert about this item?
+                <input type="number" id="specialCount" name="specialCount" min="0" value=""><br><i><b>Ignore if
+                        inapplicable</b></i>
+            </label>
+            <br><br>
+            <label>Where is this item <b><u>CURRENTLY</u></b> located?
+                <input type="text" id="location" name="location">
+            </label>
+            <br><br>
+            <label>What is the loan type?
+                <select id="loanOutType" name="loanOutType">
+                    <option value=""></option>
+                    <option value="permanent">Temporary</option>
+                    <option value="permanent">Permanent</option>
+                    <br><i><b>Is this going to be part of a permanent install, or is it for temporary use</b></i>
+                </select>
+            </label>
+            <br><br>
+            <label>Is this item still under warranty?
+                <select id="warrantyStatus" name="warrantyStatus">
+                    <option value=""></option>
+                    <option value="yes" data-id="yes">Yes</option>
+                    <option value="no" data-id="no">No</option>
+                </select>
+                <div data-show-if="warrantyStatus:yes">
+                    <input type="date" id="warrantyDate" name="warrantyDate"
+                </div>
+            </label>
+            <br><br><br>
+            <input type="submit" class="button" value="Submit" name="AddItem">
+            <input type="reset" class="button3" value="Clear" name="ClearFields">
+        </form>
     </div>
+</div>
 </body>
+<script>
+    if (document.getElementById('no').checked) {
+        //no radio button is checked
+    } else if (document.getElementById('yes').checked) {
+        //yes radio button is checked
+    }
+</script>
 </html>
 
 <?php
@@ -72,25 +99,26 @@ else {
 include("database_connection.php");
 
 //Checks to see if a user has specified an item within the form
-if (isset($_POST['AddItem'])){
+if (isset($_POST['AddItem'])) {
 
     //Adds easy to use variable names for later
     $productName = $_POST['itemName'];
     $productCount = $_POST['amount'];
     $warrantyStatus = $_POST['warrantyStatus'];
-    $warrantyDate = $_POST['warrantyDate'];
+    $warrantyEndDate = $_POST['warrantyDate'];
     $serialNumber = $_POST['serialNum'];
+    $location = $_POST['location'];
+    $loanOutType = $_POST['LoanOutType'];
 
     //Sets the warranty status option as a boolean based off of user input
-    if ($warrantyStatus = "yes"){
+    if ($warrantyStatus = "yes") {
         $warrantyStatus = TRUE;
-    }
-    else {
+    } else {
         $warrantyStatus = FALSE;
     }
 
     //Searches for an item within the Inventory table
-    $query = "SELECT * FROM Inventory WHERE productName = '".$productName."'";
+    $query = "SELECT * FROM Inventory WHERE productName = '" . $productName . "'";
     /** @var $conn */
     $result = mysqli_query($conn, $query);
 
@@ -110,7 +138,7 @@ if (isset($_POST['AddItem'])){
     }
     else {
         //If this item does not exist already, it is then added to the database
-        $sql = "INSERT INTO Inventory VALUES (itemID, '$productName', $warrantyStatus, $warrantyDate, $serialNumber, $productCount)";
+        $sql = "INSERT INTO Inventory VALUES (itemID, '$productName', $warrantyStatus, $productCount, $location, $loanOutType, $serialNumber, $warrantyEndDate)";
         $result3 = mysqli_query($conn, $sql);
         echo "<script>alert('Item Added To Database')</script>";
     }

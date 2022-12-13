@@ -25,9 +25,11 @@ CREATE TABLE Inventory
     itemID         INT AUTO_INCREMENT NOT NULL,
     productName    VARCHAR(50)        NOT NULL,
     warrantyStatus BOOLEAN,
-    warrantyDate DATE,
-    serialNumber VARCHAR(100),
+    warrantyDate   DATE,
+    serialNumber   VARCHAR(100),
     availability   INT                NOT NULL,
+    location       VARCHAR(75)        NOT NULL,
+    loanStatusType VARCHAR(10),
     CONSTRAINT itemID_pk
         PRIMARY KEY (itemID)
 );

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Console" uuid="d467ea53-3bc0-4d3c-bc1d-9c5db130747a">
+    <data-source source="LOCAL" name="PIMS" uuid="b34da1fc-3964-4c9e-bbc1-a40deadf8526">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://gocoastal.org:3306/dbbp4diqsg4wen</jdbc-url>
+      <jdbc-url>jdbc:mysql://pims.gocoastal.org:3306/dbzopdgnyog8xp</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
+      <driver-properties>
+        <property name="useSSL" value="TRUE" />
+      </driver-properties>
     </data-source>
   </component>
 </project>
